@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+// Support both standalone and Composer installations
+$possibleAutoloaders = [
+    __DIR__ . '/../vendor/autoload.php',        // When package is standalone
+    __DIR__ . '/../../../autoload.php',         // When installed via Composer
+    __DIR__ . '/../../../../autoload.php',      // When installed globally
+];
+
+$autoloaderFound = false;
+foreach ($possibleAutoloaders as $autoloader) {
+    if (file_exists($autoloader)) {
+        require_once $autoloader;
+        $autoloaderFound = true;
+        break;
+    }
+}
+
+if (!$autoloaderFound) {
+    echo "Error: Composer autoloader not found. Please run 'composer install'.\n";
+    exit(1);
+}
+
+use DeusGlobal\TokenFeeGuru\Console\CalculatorCli;
+
+try {
+    $cli = new CalculatorCli();
+    $cli->run();
+} catch (Exception $e) {
+    echo "Fatal Error: " . $e->getMessage() . "\n";
+    exit(1);
+}
