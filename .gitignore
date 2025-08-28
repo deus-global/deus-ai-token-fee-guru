@@ -39,6 +39,7 @@ local_config.php
 !data/prd.md
 !composer.json
 !CHANGELOG.md
+!docs/*.md
 
 # Test output and temporary files
 test_output/

@@ -14,6 +14,7 @@ A comprehensive PHP package for calculating Large Language Model (LLM) token usa
 - **Multiple Output Formats**: Plain text, JSON, and Markdown exports
 - **Multi-Language Support**: English (en-US) and Traditional Chinese (zh-TW)
 - **Custom Pricing Tables**: Use your own CSV pricing data
+- **Extensible Model Support**: Easily add new LLM models via CSV configuration
 - **CLI Interface**: Interactive and command-line modes
 - **Chainable API**: Fluent interface with method chaining
 - **PSR-4 Autoloading**: Modern PHP package standards
@@ -180,9 +181,83 @@ The system uses CSV files for pricing data. Default format:
 vendor,model,model_api_name,input_token_price,cached_input_token_price,output_token_price,currency
 OpenAI,GPT-5,gpt-5,1.25,0.13,10.00,USD
 OpenAI,GPT-5 mini,gpt-5-mini,0.25,0.03,2.00,USD
+OpenAI,GPT-5 nano,gpt-5-nano,0.05,0.01,0.40,USD
 ```
 
 All prices are per 1 million tokens (as per PRD requirements).
+
+### Adding Custom Models
+
+You can easily extend support to additional LLM models by adding their pricing data to `data/ai_token_pricing_table.csv`:
+
+#### CSV Column Specification:
+- **vendor**: Model provider (e.g., "OpenAI", "Anthropic", "Google")  
+- **model**: Human-readable model name (e.g., "Claude 3.5 Sonnet")
+- **model_api_name**: API identifier used in code (e.g., "claude-3-5-sonnet-20241022")
+- **input_token_price**: Cost per 1M input tokens (e.g., "3.00")
+- **cached_input_token_price**: Cost per 1M cached input tokens (e.g., "0.30")
+- **output_token_price**: Cost per 1M output tokens (e.g., "15.00")
+- **currency**: Currency code (e.g., "USD")
+
+#### Example: Adding Claude 3.5 Sonnet
+
+```csv
+vendor,model,model_api_name,input_token_price,cached_input_token_price,output_token_price,currency
+OpenAI,GPT-5,gpt-5,1.25,0.13,10.00,USD
+OpenAI,GPT-5 mini,gpt-5-mini,0.25,0.03,2.00,USD
+Anthropic,Claude 3.5 Sonnet,claude-3-5-sonnet-20241022,3.00,0.30,15.00,USD
+Google,Gemini 1.5 Pro,gemini-1.5-pro,1.25,0.13,5.00,USD
+```
+
+#### Usage with Custom Models:
+
+```php
+$client = new Client();
+
+// Use newly added models
+$result = $client
+    ->setModel('claude-3-5-sonnet-20241022')
+    ->setInputTokens(1000)
+    ->setOutputTokens(500)
+    ->calculate();
+
+// Compare across different vendors
+$comparison = $client
+    ->compareModels([
+        'gpt-5-mini',
+        'claude-3-5-sonnet-20241022', 
+        'gemini-1.5-pro'
+    ]);
+```
+
+#### CLI Usage with Custom Models:
+
+```bash
+# List all models (including newly added ones)
+./vendor/bin/deus-token-calculator --list-available-models
+
+# Calculate with custom model
+./vendor/bin/deus-token-calculator --model=claude-3-5-sonnet-20241022 --input-token-count=1000 --output-token-count=500
+
+# Compare custom models
+./vendor/bin/deus-token-calculator --compare-models=gpt-5-mini,claude-3-5-sonnet-20241022 --input-token-count=1000 --output-token-count=500
+```
+
+#### Using External Pricing Files:
+
+```php
+// Load custom pricing data from different location
+$client = new Client([
+    'pricing_table_path' => '/path/to/your/custom_pricing.csv'
+]);
+
+// Or via CLI
+./vendor/bin/deus-token-calculator --pricing-table-path=/path/to/custom_pricing.csv --list-available-models
+```
+
+**💡 Tip**: Keep your CSV file updated with the latest pricing from model providers to ensure accurate cost calculations.
+
+**📖 For detailed model extension guide**: See [docs/EXTENDING_MODELS.md](docs/EXTENDING_MODELS.md) for comprehensive instructions and examples.
 
 ## CLI Parameters
 
