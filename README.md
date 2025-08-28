@@ -474,7 +474,7 @@ $client = new Client([
 #### All Parameters Example
 ```bash
 # Using all available parameters
-php cli/deus_llm_token_calculator.php \
+./vendor/bin/deus-token-calculator \
   --model=gpt-5 \
   --input-token-count=15000 \
   --output-token-count=7500 \
@@ -490,9 +490,9 @@ php cli/deus_llm_token_calculator.php \
 #### Batch Analysis Scripts
 ```bash
 # Create multiple reports
-php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=json --output-file=basic_comparison.json
-php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --cache-hit-rate=0.5 --output-format=json --output-file=cached_comparison.json
-php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --user-count=100 --output-format=json --output-file=scaled_comparison.json
+./vendor/bin/deus-token-calculator --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=json --output-file=basic_comparison.json
+./vendor/bin/deus-token-calculator --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --cache-hit-rate=0.5 --output-format=json --output-file=cached_comparison.json
+./vendor/bin/deus-token-calculator --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --user-count=100 --output-format=json --output-file=scaled_comparison.json
 ```
 
 ### Language-Specific Examples
@@ -500,22 +500,22 @@ php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini --input-
 #### Traditional Chinese Interface
 ```bash
 # All output in Traditional Chinese
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --language=zh-TW
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --language=zh-TW
 
 # Chinese interactive mode
-php cli/deus_llm_token_calculator.php --interactive-mode --language=zh-TW
+./vendor/bin/deus-token-calculator --interactive-mode --language=zh-TW
 
 # Chinese model comparison
-php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --language=zh-TW --output-format=markdown
+./vendor/bin/deus-token-calculator --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --language=zh-TW --output-format=markdown
 ```
 
 #### English Interface (Default)
 ```bash
 # Explicit English (same as default)
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --language=en-US
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --language=en-US
 
 # English help
-php cli/deus_llm_token_calculator.php --help --language=en-US
+./vendor/bin/deus-token-calculator --help --language=en-US
 ```
 
 ## Testing
@@ -605,4 +605,4 @@ This project follows the Deus AI development standards and conventions.
 
 ---
 
-For detailed API documentation, see: `Deus_AI_Token_Fee_Guru/v1/Admin/README.md`
+For comprehensive model extension guide, see: [docs/EXTENDING_MODELS.md](docs/EXTENDING_MODELS.md)
