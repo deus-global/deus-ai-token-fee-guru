@@ -16,8 +16,8 @@ Thumbs.db
 # Composer dependencies
 vendor/
 # composer.lock should be committed for applications, ignored for libraries
-# Uncomment the line below if this is a library package for Packagist
-composer.lock
+# For Packagist packages, we'll commit composer.lock for better reproducibility
+# composer.lock
 
 # Environment and configuration files
 .env
@@ -37,6 +37,8 @@ local_config.php
 !*/README.md
 !CLAUDE.md
 !data/prd.md
+!composer.json
+!CHANGELOG.md
 
 # Test output and temporary files
 test_output/

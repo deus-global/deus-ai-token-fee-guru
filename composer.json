@@ -1,0 +1,84 @@
+{
+    "name": "deus-global/deus-ai-token-fee-guru",
+    "description": "A PHP library for calculating Large Language Model (LLM) token usage costs with cache-aware pricing and multi-user scaling support",
+    "type": "library",
+    "keywords": [
+        "llm",
+        "token",
+        "cost",
+        "calculator",
+        "ai",
+        "pricing",
+        "gpt",
+        "language-model",
+        "openai",
+        "anthropic",
+        "claude",
+        "enterprise",
+        "cache"
+    ],
+    "homepage": "https://github.com/deus-global/deus-ai-token-fee-guru",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Deus Global",
+            "email": "info@deus.global",
+            "homepage": "https://deus.global"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5.29 || ^9.5.23",
+        "bamarni/composer-bin-plugin": "^1.8.1"
+    },
+    "suggest": {
+        "ext-curl": "Required for HTTP-based pricing data fetching",
+        "ext-mbstring": "Required for multi-byte string operations"
+    },
+    "provide": {
+        "deus-global/deus-ai-token-calculator-implementation": "1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DeusGlobal\\TokenFeeGuru\\": "src/"
+        },
+        "files": [
+            "src/functions_include.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DeusGlobal\\TokenFeeGuru\\Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/deus-token-calculator"
+    ],
+    "scripts": {
+        "test": "phpunit",
+        "test-ci": "phpunit --coverage-text --coverage-clover=coverage.clover",
+        "cli": "php bin/deus-token-calculator",
+        "examples": "php tests/usage_example.php"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "bamarni/composer-bin-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "support": {
+        "issues": "https://github.com/deus-global/deus-ai-token-fee-guru/issues",
+        "source": "https://github.com/deus-global/deus-ai-token-fee-guru",
+        "docs": "https://github.com/deus-global/deus-ai-token-fee-guru/blob/main/README.md"
+    }
+}
