@@ -154,24 +154,6 @@ composer cli -- --list-available-models
 composer test
 ```
 
-## Directory Structure
-
-```
-Deus_AI_Token_Fee_Guru/
-└── v1/
-    └── Admin/
-        ├── Service/                 # Core business logic
-        │   └── Deus_AI_Token_Fee_Guru_Service.php
-        ├── Test/                    # Tests and examples
-        │   ├── Deus_AI_Token_Fee_Guru_Comprehensive_Test_Executor.php
-        │   └── usage_example.php
-        └── README.md               # Detailed API documentation
-cli/
-└── deus_llm_token_calculator.php  # CLI interface
-data/
-├── ai_token_pricing_table.csv     # Default pricing data
-└── prd.md                         # Product requirements
-```
 
 ## Pricing Data Format
 
@@ -288,19 +270,19 @@ $client = new Client([
 #### Simple Single Model Calculation
 ```bash
 # Minimal calculation
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=1000 --output-token-count=500
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=1000 --output-token-count=500
 
 # With cache hit rate
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=2000 --output-token-count=1000 --cache-hit-rate=0.1
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=2000 --output-token-count=1000 --cache-hit-rate=0.1
 ```
 
 #### Multi-User Scenarios
 ```bash
 # Small team (10 users, 5 conversations each)
-php cli/deus_llm_token_calculator.php --model=gpt-5 --input-token-count=3000 --output-token-count=1500 --user-count=10 --conversation-rounds=5
+./vendor/bin/deus-token-calculator --model=gpt-5 --input-token-count=3000 --output-token-count=1500 --user-count=10 --conversation-rounds=5
 
 # Enterprise scale (1000 users, 50 conversations each)
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=5000 --output-token-count=2000 --cache-hit-rate=0.3 --conversation-rounds=50 --user-count=1000
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=5000 --output-token-count=2000 --cache-hit-rate=0.3 --conversation-rounds=50 --user-count=1000
 ```
 
 ### Information & Discovery
@@ -308,27 +290,27 @@ php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=500
 #### List Available Models
 ```bash
 # Show all available models
-php cli/deus_llm_token_calculator.php --list-available-models
+./vendor/bin/deus-token-calculator --list-available-models
 
 # With custom pricing table
-php cli/deus_llm_token_calculator.php --list-available-models --pricing-table-path=/path/to/custom_pricing.csv
+./vendor/bin/deus-token-calculator --list-available-models --pricing-table-path=/path/to/custom_pricing.csv
 ```
 
 #### Show Pricing Information
 ```bash
 # Display detailed pricing data
-php cli/deus_llm_token_calculator.php --show-pricing-data
+./vendor/bin/deus-token-calculator --show-pricing-data
 
 # In different languages
-php cli/deus_llm_token_calculator.php --show-pricing-data --language=zh-TW
-php cli/deus_llm_token_calculator.php --show-pricing-data --language=en-US
+./vendor/bin/deus-token-calculator --show-pricing-data --language=zh-TW
+./vendor/bin/deus-token-calculator --show-pricing-data --language=en-US
 ```
 
 #### Help and Usage
 ```bash
 # Show help information
-php cli/deus_llm_token_calculator.php --help
-php cli/deus_llm_token_calculator.php -h
+./vendor/bin/deus-token-calculator --help
+./vendor/bin/deus-token-calculator -h
 ```
 
 ### Model Comparison Examples
@@ -336,16 +318,16 @@ php cli/deus_llm_token_calculator.php -h
 #### Compare All GPT-5 Models
 ```bash
 # Basic comparison
-php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini,gpt-5-nano --input-token-count=1000 --output-token-count=500
+./vendor/bin/deus-token-calculator --compare-models=gpt-5,gpt-5-mini,gpt-5-nano --input-token-count=1000 --output-token-count=500
 
 # With caching scenarios
-php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini,gpt-5-nano --input-token-count=10000 --output-token-count=5000 --cache-hit-rate=0.25
+./vendor/bin/deus-token-calculator --compare-models=gpt-5,gpt-5-mini,gpt-5-nano --input-token-count=10000 --output-token-count=5000 --cache-hit-rate=0.25
 ```
 
 #### Enterprise Model Comparison
 ```bash
 # Large scale comparison
-php cli/deus_llm_token_calculator.php \
+./vendor/bin/deus-token-calculator \
   --compare-models=gpt-5,gpt-5-mini,gpt-5-nano,gpt-4.1,gpt-4.1-mini \
   --input-token-count=5000 \
   --output-token-count=2000 \
@@ -359,31 +341,31 @@ php cli/deus_llm_token_calculator.php \
 #### Plain Text Output (Default)
 ```bash
 # Standard text output
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=1000 --output-token-count=500
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=1000 --output-token-count=500
 
 # Text output in Chinese
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --language=zh-TW
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --language=zh-TW
 ```
 
 #### JSON Output
 ```bash
 # JSON format
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=json
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=json
 
 # JSON with model comparison
-php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=json
+./vendor/bin/deus-token-calculator --compare-models=gpt-5,gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=json
 
 # Legacy JSON flag (still supported)
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --export-json
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --export-json
 ```
 
 #### Markdown Output
 ```bash
 # Markdown format
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=markdown
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=markdown
 
 # Markdown comparison table
-php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini,gpt-5-nano --input-token-count=1000 --output-token-count=500 --output-format=markdown
+./vendor/bin/deus-token-calculator --compare-models=gpt-5,gpt-5-mini,gpt-5-nano --input-token-count=1000 --output-token-count=500 --output-format=markdown
 ```
 
 ### File Output Examples
@@ -391,13 +373,13 @@ php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini,gpt-5-na
 #### Save to Files
 ```bash
 # Save JSON to file
-php cli/deus_llm_token_calculator.php --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=json --output-file=results.json
+./vendor/bin/deus-token-calculator --model=gpt-5-mini --input-token-count=1000 --output-token-count=500 --output-format=json --output-file=results.json
 
 # Save markdown comparison to file
-php cli/deus_llm_token_calculator.php --compare-models=gpt-5,gpt-5-mini,gpt-5-nano --input-token-count=1000 --output-token-count=500 --output-format=markdown --output-file=comparison.md
+./vendor/bin/deus-token-calculator --compare-models=gpt-5,gpt-5-mini,gpt-5-nano --input-token-count=1000 --output-token-count=500 --output-format=markdown --output-file=comparison.md
 
 # Save text output to file
-php cli/deus_llm_token_calculator.php --model=gpt-5 --input-token-count=5000 --output-token-count=3000 --cache-hit-rate=0.3 --output-file=enterprise_cost.txt
+./vendor/bin/deus-token-calculator --model=gpt-5 --input-token-count=5000 --output-token-count=3000 --cache-hit-rate=0.3 --output-file=enterprise_cost.txt
 ```
 
 ### Interactive Mode Examples
@@ -405,10 +387,10 @@ php cli/deus_llm_token_calculator.php --model=gpt-5 --input-token-count=5000 --o
 #### Interactive CLI Session
 ```bash
 # Launch interactive mode
-php cli/deus_llm_token_calculator.php --interactive-mode
+./vendor/bin/deus-token-calculator --interactive-mode
 
 # Interactive mode with language preference
-php cli/deus_llm_token_calculator.php --interactive-mode --language=zh-TW
+./vendor/bin/deus-token-calculator --interactive-mode --language=zh-TW
 ```
 
 ### Custom Pricing Table Examples
@@ -416,16 +398,16 @@ php cli/deus_llm_token_calculator.php --interactive-mode --language=zh-TW
 #### Using Custom Pricing Data
 ```bash
 # List models from custom pricing table
-php cli/deus_llm_token_calculator.php --list-available-models --pricing-table-path=/path/to/custom_pricing.csv
+./vendor/bin/deus-token-calculator --list-available-models --pricing-table-path=/path/to/custom_pricing.csv
 
 # Calculate with custom pricing
-php cli/deus_llm_token_calculator.php --model=custom-model --input-token-count=1000 --output-token-count=500 --pricing-table-path=/path/to/custom_pricing.csv
+./vendor/bin/deus-token-calculator --model=custom-model --input-token-count=1000 --output-token-count=500 --pricing-table-path=/path/to/custom_pricing.csv
 
 # Compare custom models
-php cli/deus_llm_token_calculator.php --compare-models=custom-model-1,custom-model-2 --input-token-count=1000 --output-token-count=500 --pricing-table-path=/path/to/custom_pricing.csv
+./vendor/bin/deus-token-calculator --compare-models=custom-model-1,custom-model-2 --input-token-count=1000 --output-token-count=500 --pricing-table-path=/path/to/custom_pricing.csv
 
 # Show custom pricing data
-php cli/deus_llm_token_calculator.php --show-pricing-data --pricing-table-path=/path/to/custom_pricing.csv
+./vendor/bin/deus-token-calculator --show-pricing-data --pricing-table-path=/path/to/custom_pricing.csv
 ```
 
 ### Real-World Scenario Examples
@@ -433,7 +415,7 @@ php cli/deus_llm_token_calculator.php --show-pricing-data --pricing-table-path=/
 #### Chatbot Cost Estimation (High Cache Hit Rate)
 ```bash
 # Chatbot with system prompts (70% cache hit rate)
-php cli/deus_llm_token_calculator.php \
+./vendor/bin/deus-token-calculator \
   --model=gpt-5-mini \
   --input-token-count=8000 \
   --output-token-count=2000 \
@@ -447,7 +429,7 @@ php cli/deus_llm_token_calculator.php \
 #### API Service Cost Planning
 ```bash
 # API service cost analysis
-php cli/deus_llm_token_calculator.php \
+./vendor/bin/deus-token-calculator \
   --model=gpt-5 \
   --input-token-count=3000 \
   --output-token-count=1500 \
@@ -461,7 +443,7 @@ php cli/deus_llm_token_calculator.php \
 #### Content Generation Service
 ```bash
 # Content generation with minimal caching
-php cli/deus_llm_token_calculator.php \
+./vendor/bin/deus-token-calculator \
   --model=gpt-5-nano \
   --input-token-count=2000 \
   --output-token-count=4000 \
@@ -475,7 +457,7 @@ php cli/deus_llm_token_calculator.php \
 #### Cost Optimization Analysis
 ```bash
 # Compare all models for cost optimization
-php cli/deus_llm_token_calculator.php \
+./vendor/bin/deus-token-calculator \
   --compare-models=gpt-5,gpt-5-mini,gpt-5-nano,gpt-4.1,gpt-4.1-mini \
   --input-token-count=10000 \
   --output-token-count=5000 \
@@ -538,14 +520,14 @@ php cli/deus_llm_token_calculator.php --help --language=en-US
 
 ## Testing
 
-Run the comprehensive test suite:
-```bash
-php Deus_AI_Token_Fee_Guru/v1/Admin/Test/Deus_AI_Token_Fee_Guru_Comprehensive_Test_Executor.php
-```
+The package includes comprehensive test examples that you can run after installation:
 
-View usage examples:
 ```bash
-php Deus_AI_Token_Fee_Guru/v1/Admin/Test/usage_example.php
+# Run usage examples 
+composer examples
+
+# Test model extension functionality
+php test_extension.php
 ```
 
 ## Key Features Explained
